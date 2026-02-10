@@ -3,10 +3,8 @@ html, body, #root {
   height: 100%;
   margin: 0;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: url("/images/college-campus.jpg") no-repeat center center fixed;
+  background: url("/images/campus.jpg") no-repeat center center fixed;
   background-size: cover;
-  display: flex;
-  flex-direction: column;
 }
 
 /* Page wrapper for all components */
