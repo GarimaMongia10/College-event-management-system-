@@ -1,68 +1,37 @@
-/* Global styles */
-body {
+/* Full screen layout for all pages */
+html, body, #root {
+  height: 100%;
+  margin: 0;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0;
-  background: #f4f6f9;
-  color: #333;
+  background: linear-gradient(135deg, #4a90e2, #007acc);
+  display: flex;
+  flex-direction: column;
 }
 
-/* Header */
-h1 {
-  text-align: center;
-  background: linear-gradient(90deg, #4a90e2, #007acc);
-  color: white;
-  padding: 20px;
-  margin: 0;
-  font-size: 28px;
+/* Page wrapper */
+.page-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
 }
 
-/* Navigation bar */
-nav {
-  background: #007acc;
-  padding: 10px;
-  text-align: center;
-}
-
-nav a {
-  color: white;
-  text-decoration: none;
-  margin: 0 15px;
-  font-weight: bold;
-  transition: color 0.3s;
-}
-
-nav a:hover {
-  color: #ffdd57;
-}
-
-/* Container */
-div {
-  max-width: 900px;
-  margin: 20px auto;
-  padding: 20px;
+/* Card style for forms, lists, reports */
+.card {
   background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  width: 90%;
+  max-width: 600px;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  animation: fadeIn 0.8s ease-in-out;
 }
 
-/* Event list */
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  background: #f9f9f9;
-  margin: 10px 0;
-  padding: 15px;
-  border-left: 5px solid #007acc;
-  border-radius: 5px;
-  transition: transform 0.2s;
-}
-
-li:hover {
-  transform: scale(1.02);
-  background: #eef6ff;
+.card h2 {
+  text-align: center;
+  color: #007acc;
+  margin-bottom: 20px;
 }
 
 /* Buttons */
@@ -70,12 +39,34 @@ button {
   background: #007acc;
   color: white;
   border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
+  padding: 12px 20px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: transform 0.2s, background 0.3s;
 }
 
 button:hover {
   background: #005fa3;
+  transform: scale(1.05);
+}
+
+/* Event cards */
+.event-card {
+  background: #f9f9f9;
+  margin: 15px 0;
+  padding: 20px;
+  border-left: 5px solid #007acc;
+  border-radius: 8px;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+  background: #eef6ff;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
