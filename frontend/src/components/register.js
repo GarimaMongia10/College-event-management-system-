@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import API from "../api";
-import "./App.css"; // make sure global styles are imported
+import "../App.css"; // ✅ fixed path to global styles
 
 function Register() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
