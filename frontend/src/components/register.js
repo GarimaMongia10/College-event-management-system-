@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import API from "../api";
+import "./App.css"; // make sure global styles are imported
 
 function Register() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -19,13 +20,33 @@ function Register() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Register</h2>
-      <input name="name" placeholder="Name" value={form.name} onChange={handleChange} />
-      <input name="email" placeholder="Email" value={form.email} onChange={handleChange} />
-      <input name="password" type="password" placeholder="Password" value={form.password} onChange={handleChange} />
-      <button type="submit">Register</button>
-    </form>
+    <div className="page-container register-page">
+      <div className="card">
+        <h2>Register</h2>
+        <form onSubmit={handleSubmit}>
+          <input
+            name="name"
+            placeholder="Name"
+            value={form.name}
+            onChange={handleChange}
+          />
+          <input
+            name="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={handleChange}
+          />
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={handleChange}
+          />
+          <button type="submit">Register</button>
+        </form>
+      </div>
+    </div>
   );
 }
 
