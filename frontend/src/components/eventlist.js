@@ -17,6 +17,10 @@ function EventList() {
   }, []);
 
   return (
+    <div className="page-container">
+      <div className="card">
+
+
     <div>
       <h2>Events</h2>
       {events.length === 0 ? (
@@ -34,6 +38,9 @@ function EventList() {
         </ul>
       )}
     </div>
+    </div>
+</div>
+
   );
 }
 

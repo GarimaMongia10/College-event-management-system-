@@ -19,14 +19,19 @@ function EventForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div className="page-container">
+      <div className="card">
+      <form onSubmit={handleSubmit}>
       <h2>Add Event</h2>
       <input name="title" placeholder="Title" value={form.title} onChange={handleChange} />
       <input name="description" placeholder="Description" value={form.description} onChange={handleChange} />
       <input name="date" type="date" value={form.date} onChange={handleChange} />
       <input name="location" placeholder="Location" value={form.location} onChange={handleChange} />
       <button type="submit">Create Event</button>
-    </form>
+      </form>
+      </div>
+    </div>
+
   );
 }
 
