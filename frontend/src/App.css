@@ -1,39 +1,201 @@
-/* Full screen layout with background image */
-html, body, #root {
-  height: 100%;
+/* Modern Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+* {
   margin: 0;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: url("./images/campus.jpg") no-repeat center center fixed;
-  background-size: cover;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
-/* Page wrapper for all components */
-.page-container {
-  flex: 1;
+body {
+  background: #f5f2ee;
+  color: #333;
+}
+
+/* Main containers */
+div {
+  transition: all 0.25s ease;
+}
+
+/* Headings */
+h1, h2, h3 {
+  font-weight: 600;
+  color: #2f2f2f;
+  margin-bottom: 10px;
+}
+
+/* Cards (applies automatically to most sections) */
+.card,
+form,
+.event-card,
+.event-item,
+.list-item {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+/* Hover lift effect */
+.card:hover,
+.event-card:hover,
+.event-item:hover {
+  transform: translateY(-3px);
+}
+
+/* Forms */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 500px;
+}
+
+/* Inputs */
+input,
+textarea,
+select {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #e4e4e4;
+  font-size: 14px;
+  background: #fafafa;
+  outline: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #6fb7b7;
+  background: #ffffff;
+}
+
+/* Buttons (global) */
+button {
+  padding: 10px 18px;
+  border-radius: 25px;
+  border: none;
+  background: #6fb7b7;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+button:hover {
+  background: #5aa3a3;
+  transform: scale(1.03);
+}
+
+/* Delete button if exists */
+button.delete,
+.delete-btn {
+  background: #ff6b6b;
+}
+
+button.delete:hover,
+.delete-btn:hover {
+  background: #e05555;
+}
+
+/* Edit button */
+button.edit,
+.edit-btn {
+  background: #ffd166;
+  color: #333;
+}
+
+button.edit:hover,
+.edit-btn:hover {
+  background: #f0c04d;
+}
+
+/* Lists (event list styling) */
+ul {
+  list-style: none;
+}
+
+li {
+  background: #f9f7f4;
+  padding: 15px;
+  margin-bottom: 12px;
+  border-radius: 14px;
+  border-left: 6px solid #6fb7b7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Navigation if present */
+nav {
+  background: #ffffff;
+  padding: 15px 25px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+  margin-bottom: 25px;
+}
+
+nav a {
+  margin-right: 18px;
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+}
+
+nav a:hover {
+  color: #6fb7b7;
+}
+
+/* Page spacing */
+.container,
+.main,
+.app {
+  width: 90%;
+  max-width: 1100px;
+  margin: 30px auto;
+}
+
+/* Center auth pages if they exist */
+.auth,
+.login,
+.register {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px;
+  min-height: 70vh;
 }
 
-/* Card style for forms, lists, reports */
-.card {
-  background: rgba(255, 255, 255, 0.9); /* semi-transparent overlay */
-  width: 90%;
-  max-width: 600px;
-  padding: 40px;
+/* Tables if used */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-  text-align: center;
-  animation: fadeIn 0.8s ease-in-out;
+  overflow: hidden;
 }
 
-.card h2 {
-  color: #007acc;
-  margin-bottom: 20px;
+th {
+  background: #6fb7b7;
+  color: white;
+  padding: 12px;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
+td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  form {
+    width: 100%;
+  }
 }

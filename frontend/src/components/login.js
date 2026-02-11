@@ -17,6 +17,10 @@ function Login({ onLogin }) {
   };
 
   return (
+    <div className="page-container">
+  <div className="card">
+
+
     <form onSubmit={handleSubmit}>
       <h2>Login</h2>
       <input type="email" placeholder="Email" value={email}
@@ -25,6 +29,9 @@ function Login({ onLogin }) {
              onChange={(e) => setPassword(e.target.value)} />
       <button type="submit">Login</button>
     </form>
+     </div>
+</div>
+
   );
 }
 
