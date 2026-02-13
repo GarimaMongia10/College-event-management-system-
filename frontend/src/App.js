@@ -1,51 +1,90 @@
-import "./App.css";
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+
 import Login from "./components/login";
 import Register from "./components/register";
 import EventList from "./components/eventlist";
-import EventForm from "./components/eventform";
+import AddEvent from "./components/eventform";
 import Reports from "./components/reports";
 import Settings from "./components/settings";
+import Layout from "./components/layout";
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem("token"));
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    !!localStorage.getItem("token")
+  );
+
+  const role = localStorage.getItem("role");
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
 
   return (
-    <div
-      style={{
-        backgroundImage: `url(${process.env.PUBLIC_URL}/images/campus.jpg)`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        minHeight: "100vh",
-      }}
-    >
-      <Router>
-        <div className="app-container">
-          <h1>College Event Management System</h1>
-          <nav>
-            <Link to="/">Events</Link> |{" "}
-            <Link to="/event/new">Add Event</Link> |{" "}
-            <Link to="/reports">Reports</Link> |{" "}
-            <Link to="/settings">Settings</Link> |{" "}
-            {!loggedIn && <Link to="/login">Login</Link>} |{" "}
-            {!loggedIn && <Link to="/register">Register</Link>}
-          </nav>
+    <Router>
+      <Routes>
 
-          <Routes>
-            <Route path="/" element={<EventList />} />
-            <Route path="/event/new" element={<EventForm />} />
-            <Route path="/reports" element={<Reports />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route
-              path="/login"
-              element={<Login onLogin={() => setLoggedIn(true)} />}
-            />
-            <Route path="/register" element={<Register />} />
-          </Routes>
-        </div>
-      </Router>
-    </div>
+        {/* Auth Pages */}
+        <Route path="/login" element={<Login onLogin={handleLogin} />} />
+        <Route path="/register" element={<Register />} />
+
+        {/* Protected */}
+        <Route
+          path="/events"
+          element={
+            isLoggedIn ? (
+              <Layout>
+                <EventList />
+              </Layout>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        <Route
+          path="/add-event"
+          element={
+            isLoggedIn && role === "admin" ? (
+              <Layout>
+                <AddEvent />
+              </Layout>
+            ) : (
+              <Navigate to="/events" />
+            )
+          }
+        />
+
+        <Route
+          path="/reports"
+          element={
+            isLoggedIn ? (
+              <Layout>
+                <Reports />
+              </Layout>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        <Route
+          path="/settings"
+          element={
+            isLoggedIn ? (
+              <Layout>
+                <Settings />
+              </Layout>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        <Route path="/" element={<Navigate to="/login" />} />
+
+      </Routes>
+    </Router>
   );
 }
 

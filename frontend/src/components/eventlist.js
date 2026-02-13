@@ -3,6 +3,7 @@ import API from "../api";
 
 function EventList() {
   const [events, setEvents] = useState([]);
+  const role = localStorage.getItem("role");
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -13,34 +14,46 @@ function EventList() {
         console.error("Error fetching events:", err);
       }
     };
+
     fetchEvents();
+
+    // allow refresh from EventForm
+    window.refreshEvents = fetchEvents;
   }, []);
 
   return (
-    <div className="page-container">
-      <div className="card">
-
-
     <div>
-      <h2>Events</h2>
+      <h2>Events Dashboard</h2>
+
       {events.length === 0 ? (
         <p>No events available</p>
       ) : (
-        <ul>
+        <div className="events-grid">
           {events.map((event) => (
-            <li key={event._id}>
-              <strong>{event.title}</strong> <br />
-              {event.description} <br />
-              📅 {new Date(event.date).toLocaleDateString()} <br />
-              📍 {event.location}
-            </li>
+            <div className="event-card" key={event._id}>
+              {event.image && (
+                <img
+                  src={event.image}
+                  alt={event.title}
+                  className="event-image"
+                />
+              )}
+
+              <h3>{event.title}</h3>
+              <p><strong>Date:</strong> {event.date}</p>
+              {event.location && <p>{event.location}</p>}
+
+              {/* Admin only button */}
+              {role === "admin" && (
+                <button className="delete-btn">
+                  Delete
+                </button>
+              )}
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
-    </div>
-</div>
-
   );
 }
 

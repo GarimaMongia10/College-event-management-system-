@@ -1,48 +1,70 @@
 import React, { useState } from "react";
 import API from "../api";
-import "../App.css"; // ✅ fixed path to global styles
+import { useNavigate } from "react-router-dom";
 
 function Register() {
-  const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("student");
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      await API.post("/auth/register", form);
-      alert("Registered successfully!");
-    } catch {
-      alert("Registration failed");
+      await API.post("/auth/register", {
+        name,
+        email,
+        password,
+        role,
+      });
+
+      alert("Registered successfully");
+      navigate("/login");
+    } catch (err) {
+      console.error("Registration Error:",err.response?.data || err.message);
+      alert(err.response?.data?.message || "Registration failed");
     }
   };
 
   return (
-    <div className="page-container register-page">
+    <div className="page-container">
       <div className="card">
         <h2>Register</h2>
+
         <form onSubmit={handleSubmit}>
           <input
-            name="name"
-            placeholder="Name"
-            value={form.name}
-            onChange={handleChange}
+            placeholder="Full Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
           />
+
           <input
-            name="email"
+            type="email"
             placeholder="Email"
-            value={form.email}
-            onChange={handleChange}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
           />
+
           <input
-            name="password"
             type="password"
             placeholder="Password"
-            value={form.password}
-            onChange={handleChange}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
           />
+
+          {/* ROLE DROPDOWN */}
+          <select value={role} onChange={(e) => setRole(e.target.value)}>
+            <option value="student">Student</option>
+            <option value="faculty">Faculty</option>
+            <option value="admin">Administrator</option>
+          </select>
+
           <button type="submit">Register</button>
         </form>
       </div>

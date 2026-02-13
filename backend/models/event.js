@@ -5,7 +5,10 @@ const eventSchema = new mongoose.Schema({
   description: String,
   date: Date,
   location: String,
-  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
+  image: String, // Base64 encoded image or URL
+  participants: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  createdAt: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model("Event", eventSchema);

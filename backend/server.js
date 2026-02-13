@@ -19,11 +19,13 @@ const authRoutes = require("./routes/auth");
 const eventRoutes = require("./routes/event");
 const reportRoutes = require("./routes/report");
 const settingRoutes = require("./routes/setting");
+const usersRoutes = require("./routes/users");
 
 app.use("/api/auth", authRoutes);
 app.use("/api/event", eventRoutes);
 app.use("/api/report", reportRoutes);
 app.use("/api/setting", settingRoutes);
+app.use("/api/users", usersRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

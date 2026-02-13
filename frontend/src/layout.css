@@ -1,0 +1,99 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: #f4f6fb;
+}
+
+/* Layout */
+.layout {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 230px;
+  background: #ffffff;
+  padding: 20px;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  color: #5a67f2;
+  margin-bottom: 30px;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: #333;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 5px;
+}
+
+.sidebar a:hover {
+  background: #eef1ff;
+}
+
+.logout {
+  margin-top: auto;
+  cursor: pointer;
+  color: #888;
+}
+
+/* Main content */
+.content {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+/* Cards */
+.card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* Login/Register center */
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Form inputs */
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+button {
+  padding: 10px;
+  background: #5a67f2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Events Grid */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.event-card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
