@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api";
@@ -8,45 +9,31 @@ function Login({ onLogin }) {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const res = await API.post("/auth/login", {
-        email,
-        password,
-      });
+  try {
+    const res = await API.post("/auth/login", { email, password });
 
-      // Save token
-      localStorage.setItem("token", res.data.token);
-      const payload = JSON.parse(atob(res.data.token.split(".")[1]));
-localStorage.setItem("role", payload.role);
-      // Decode token to get role
-      try {
-        const payload = JSON.parse(
-          atob(res.data.token.split(".")[1])
-        );
-        if (payload.role) {
-          localStorage.setItem("role", payload.role);
-        }
-      } catch (err) {
-        console.log("Role decode failed");
-      }
+    // Save token
+    localStorage.setItem("token", res.data.token);
 
-      // Update app state if function provided
-      if (onLogin) {
-        onLogin();
-      }
+    // Decode token to get role
+    const payload = JSON.parse(
+      atob(res.data.token.split(".")[1])
+    );
+     console.log("Decoded payload:", payload);
 
-      // Redirect to Events page
-      navigate("/events");
+    localStorage.setItem("role", payload.role);
 
-      // Reload to refresh navbar
-      window.location.reload();
+    // Redirect to Events Dashboard
+    navigate("/events");
 
-    } catch (error) {
-      alert("Invalid email or password");
-    }
-  };
+  } catch (err) {
+    alert(err.response?.data?.message || "Login failed");
+  }
+};
+
+
 
   return (
   <div className="page-container">
@@ -74,7 +61,8 @@ localStorage.setItem("role", payload.role);
       </form>
 
       <p style={{ marginTop: "15px" }}>
-        Don't have an account? <a href="/register">Register</a>
+        Don't have an account? <Link to="/register">Register</Link>
+
       </p>
     </div>
   </div>
