@@ -8,6 +8,7 @@ import AddEvent from "./components/eventform";
 import Reports from "./components/reports";
 import Settings from "./components/settings";
 import Layout from "./components/layout";
+import AdminDashboard from "./components/AdminDashboard";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -24,11 +25,11 @@ function App() {
     <Router>
       <Routes>
 
-        {/* Auth Pages */}
+        {/* Public Routes */}
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/register" element={<Register />} />
 
-        {/* Protected */}
+        {/* Events Page (All logged users) */}
         <Route
           path="/events"
           element={
@@ -42,10 +43,11 @@ function App() {
           }
         />
 
+        {/* Add Event (Admin + Faculty) */}
         <Route
           path="/add-event"
           element={
-            isLoggedIn && role === "admin" ? (
+            isLoggedIn && (role === "admin" || role === "faculty") ? (
               <Layout>
                 <AddEvent />
               </Layout>
@@ -55,32 +57,49 @@ function App() {
           }
         />
 
+        {/* Admin Dashboard */}
+        <Route
+          path="/admin-dashboard"
+          element={
+            isLoggedIn && role === "admin" ? (
+              <Layout>
+                <AdminDashboard />
+              </Layout>
+            ) : (
+              <Navigate to="/events" />
+            )
+          }
+        />
+
+        {/* Reports (Admin only) */}
         <Route
           path="/reports"
           element={
-            isLoggedIn ? (
+            isLoggedIn && role === "admin" ? (
               <Layout>
                 <Reports />
               </Layout>
             ) : (
-              <Navigate to="/login" />
+              <Navigate to="/events" />
             )
           }
         />
 
+        {/* Settings (Admin only) */}
         <Route
           path="/settings"
           element={
-            isLoggedIn ? (
+            isLoggedIn && role === "admin" ? (
               <Layout>
                 <Settings />
               </Layout>
             ) : (
-              <Navigate to="/login" />
+              <Navigate to="/events" />
             )
           }
         />
 
+        {/* Default */}
         <Route path="/" element={<Navigate to="/login" />} />
 
       </Routes>

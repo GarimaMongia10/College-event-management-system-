@@ -1,28 +1,24 @@
 import React, { useEffect, useState } from "react";
 import API from "../api";
 
-function Reports() {
+function AdminDashboard() {
   const [data, setData] = useState({
     totalEvents: 0,
     totalUsers: 0
   });
 
   useEffect(() => {
-    fetchReport();
+    fetchData();
   }, []);
 
-  const fetchReport = async () => {
-    try {
-      const res = await API.get("/report/summary");
-      setData(res.data);
-    } catch (err) {
-      console.error("Report error:", err);
-    }
+  const fetchData = async () => {
+    const res = await API.get("/report/summary");
+    setData(res.data);
   };
 
   return (
     <div className="card">
-      <h2>Reports</h2>
+      <h2>Admin Dashboard</h2>
 
       <div className="stats">
         <div className="stat-box">
@@ -39,4 +35,4 @@ function Reports() {
   );
 }
 
-export default Reports;
+export default AdminDashboard;

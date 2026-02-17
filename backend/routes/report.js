@@ -1,24 +1,21 @@
 const express = require("express");
 const router = express.Router();
-const Report = require("../models/report");
+const Event = require("../models/event");
+const User = require("../models/user");
 const { authMiddleware } = require("../middleware/auth");
 
-router.post("/", authMiddleware(["admin", "Admin"]), async (req, res) => {
+// GET dashboard statistics (Admin only)
+router.get("/", authMiddleware(["admin"]), async (req, res) => {
   try {
-    const report = new Report({ ...req.body, generatedBy: req.user.id });
-    await report.save();
-    res.json(report);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-});
+    const totalEvents = await Event.countDocuments();
+    const totalUsers = await User.countDocuments();
 
-router.get("/", authMiddleware(["admin", "Admin"]), async (req, res) => {
-  try {
-    const reports = await Report.find().populate("eventId");
-    res.json(reports);
+    res.json({
+      totalEvents,
+      totalUsers
+    });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: err.message });
   }
 });
 
