@@ -8,7 +8,6 @@ import AddEvent from "./components/eventform";
 import Reports from "./components/reports";
 import Settings from "./components/settings";
 import Layout from "./components/layout";
-import AdminDashboard from "./components/AdminDashboard";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(
@@ -57,19 +56,7 @@ function App() {
           }
         />
 
-        {/* Admin Dashboard */}
-        <Route
-          path="/admin-dashboard"
-          element={
-            isLoggedIn && role === "admin" ? (
-              <Layout>
-                <AdminDashboard />
-              </Layout>
-            ) : (
-              <Navigate to="/events" />
-            )
-          }
-        />
+        
 
         {/* Reports (Admin only) */}
         <Route

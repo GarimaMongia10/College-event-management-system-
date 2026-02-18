@@ -1,21 +1,13 @@
 const mongoose = require("mongoose");
 
 const settingSchema = new mongoose.Schema({
-  theme: {
-    type: String,
-    default: "light"
-  },
-  notificationPreferences: {
-    type: String,
-    default: "email"
-  },
-  maxSeats: {
-    type: Number,
-    default: 100   // maximum seats allowed per event
-  },
-  enableRegistration: {
+  registrationEnabled: {
     type: Boolean,
     default: true
+  },
+  maxUsersPerEvent: {
+    type: Number,
+    default: 50
   }
 });
 

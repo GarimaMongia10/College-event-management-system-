@@ -5,27 +5,35 @@ import "../App.css";
 function Layout({ children }) {
   const role = localStorage.getItem("role");
 
-  const logout = () => {
-    localStorage.clear();
-    window.location.href = "/login";
-  };
-
   return (
-    <div className="layout">
+    <div className="app-container">
+      {/* Sidebar */}
       <div className="sidebar">
-        <h3>CampusConnect</h3>
+        <h2 className="logo">CampusConnect</h2>
 
         <Link to="/events">Events</Link>
-        {role === "admin" && <Link to="/add-event">Add Event</Link>}
-        <Link to="/reports">Reports</Link>
-        <Link to="/settings">Settings</Link>
 
-        <span onClick={logout} className="logout">
-          Logout
-        </span>
+        {(role === "admin" || role === "faculty") && (
+          <Link to="/add-event">Add Event</Link>
+        )}
+
+        {/* Reports visible to all logged users */}
+        <Link to="/reports">Reports</Link>
+
+        {/* Settings only for admin */}
+        {role === "admin" && (
+          <Link to="/settings">Settings</Link>
+        )}
+
+        <Link to="/login">Logout</Link>
       </div>
 
-      <div className="content">{children}</div>
+      {/* Main Content */}
+      <div className="main-content">
+        <div className="content-center">
+          {children}
+        </div>
+      </div>
     </div>
   );
 }

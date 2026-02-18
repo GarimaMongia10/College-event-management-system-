@@ -1,11 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import API from "../api";
 
 function Settings() {
   const [registrationEnabled, setRegistrationEnabled] = useState(true);
-  const [maxEventsPerUser, setMaxEventsPerUser] = useState(5);
+  const [maxUsersPerEvent, setMaxUsersPerEvent] = useState(50);
+
+  // Load settings from backend
+  useEffect(() => {
+    API.get("/setting")
+      .then(res => {
+        setRegistrationEnabled(res.data.registrationEnabled);
+        setMaxUsersPerEvent(res.data.maxUsersPerEvent);
+      })
+      .catch(err => console.error("Error loading settings", err));
+  }, []);
 
   const handleSave = () => {
-    alert("Settings saved (frontend only)");
+    API.put("/setting", {
+      registrationEnabled,
+      maxUsersPerEvent
+    })
+      .then(() => {
+        alert("Settings saved successfully");
+      })
+      .catch(err => console.error("Save error", err));
   };
 
   return (
@@ -17,25 +35,25 @@ function Settings() {
           <input
             type="checkbox"
             checked={registrationEnabled}
-            onChange={(e) => setRegistrationEnabled(e.target.checked)}
+            onChange={e => setRegistrationEnabled(e.target.checked)}
           />
           Enable Event Registration
         </label>
 
         <br /><br />
 
-        <label>Max Users per Event:</label>
-        <input
-          type="number"
-          value={maxEventsPerUser}
-          onChange={(e) => setMaxEventsPerUser(e.target.value)}
-        />
+        <label>
+          Max Users per Event:
+          <input
+            type="number"
+            value={maxUsersPerEvent}
+            onChange={e => setMaxUsersPerEvent(e.target.value)}
+          />
+        </label>
 
         <br /><br />
 
-        <button onClick={handleSave}>
-          Save Settings
-        </button>
+        <button onClick={handleSave}>Save Settings</button>
       </div>
     </div>
   );

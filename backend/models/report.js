@@ -1,10 +1,18 @@
 const mongoose = require("mongoose");
 
 const reportSchema = new mongoose.Schema({
-  eventId: { type: mongoose.Schema.Types.ObjectId, ref: "Event" },
-  attendance: Number,
-  feedback: String,
-  generatedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
+  totalEvents: {
+    type: Number,
+    required: true
+  },
+  totalUsers: {
+    type: Number,
+    required: true
+  },
+  generatedAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 module.exports = mongoose.model("Report", reportSchema);
